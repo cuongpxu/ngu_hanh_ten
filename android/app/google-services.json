@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "825052812488",
+    "project_id": "nguhanhten",
+    "storage_bucket": "nguhanhten.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825052812488:android:865b1490cbaa52e84641fd",
+        "android_client_info": {
+          "package_name": "com.miabox.app.ngu_hanh_ten"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825052812488-tkc8uqqb04ilkvpr2osgcps90fk7m5ms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miabox.app.ngu_hanh_ten",
+            "certificate_hash": "20301876fed552db4bea7eef53bcf7d2b0a75925"
+          }
+        },
+        {
+          "client_id": "825052812488-u3lroqcn1h90tjei1r6nb487jnis8ipc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miabox.app.ngu_hanh_ten",
+            "certificate_hash": "a2bb6ce408bd27ec8ad442135ff294c4cca52b2a"
+          }
+        },
+        {
+          "client_id": "825052812488-qjnkp7pgoco36360om97jqcqinifb28a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0v3CwTjl36koKxOK84Oa4njZ6U46v4Ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825052812488-qjnkp7pgoco36360om97jqcqinifb28a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
