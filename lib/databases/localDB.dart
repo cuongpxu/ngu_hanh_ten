@@ -13,7 +13,7 @@ import '../models/CungMenh.dart';
 class DBProvider {
   DBProvider._();
   static final DBProvider db = DBProvider._();
-  static Database _database;
+  static  Database _database;
 
   static const DB_NAME = "nguhanhten.db";
   static const PWD = "Manuka1603@#";
@@ -123,12 +123,10 @@ class DBProvider {
         offset: offset,
         orderBy: "$ID ASC");
     List<NguHanhTen> nhts = [];
-    if (results != null){
-      results.forEach((result) {
-        NguHanhTen nht = NguHanhTen.fromJson(result);
-        nhts.add(nht);
-      });
-    }
+    results.forEach((result) {
+      NguHanhTen nht = NguHanhTen.fromJson(result);
+      nhts.add(nht);
+    });
     return nhts;
   }
 
@@ -147,12 +145,10 @@ class DBProvider {
     final db = await database;
     List<Map> results = await db.query(NAME_TABLE, where: "$TYPE = ?", whereArgs: [type], orderBy: "RANDOM()", limit: 10);
     List<NguHanhTen> nhts = [];
-    if (results != null){
-      results.forEach((result) {
-        NguHanhTen nht = NguHanhTen.fromJson(result);
-        nhts.add(nht);
-      });
-    }
+    results.forEach((result) {
+      NguHanhTen nht = NguHanhTen.fromJson(result);
+      nhts.add(nht);
+    });
     return nhts;
   }
 
@@ -163,12 +159,10 @@ class DBProvider {
         limit: 50, offset: offset,
         orderBy: "$ID ASC");
     List<NguHanhTen> nhts = [];
-    if (results != null){
-      results.forEach((result) {
-        NguHanhTen nht = NguHanhTen.fromJson(result);
-        nhts.add(nht);
-      });
-    }
+    results.forEach((result) {
+      NguHanhTen nht = NguHanhTen.fromJson(result);
+      nhts.add(nht);
+    });
     return nhts;
   }
 

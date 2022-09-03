@@ -29,12 +29,12 @@ dependencies:
   firebase_core: ^0.7.0
   firebase_analytics: "^7.0.1"
   google_mobile_ads: ^0.11.0+2
-  flutter_native_admob: ^2.1.0+3
+#  flutter_native_admob: ^2.1.0+3
   shared_preferences: ^2.0.3
   sqflite_sqlcipher: ^1.1.4
   path_provider: any
   flutter_launcher_icons: ^0.8.1
-  datetime_picker_formfield: ^1.0.0
+  datetime_picker_formfield: ^2.0.1
   double_back_to_close_app: ^1.2.0
   uuid: ^2.2.2
   # The following adds the Cupertino Icons font to your application.

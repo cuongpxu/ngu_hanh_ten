@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_native_admob/flutter_native_admob.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../databases/localDB.dart';
@@ -40,32 +38,37 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
   List<NguHanhTen> lstNHTNames;
 
   IconData iconData = Icons.favorite_border;
-
-  double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
+  double adsHeight = 90.0;
 
   InterstitialAd _interstitialAd;
   bool _interstitialReady ;
+  BannerAd _ad;
 
   _NguHanhDetailPageState({this.nhi});
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
+    createInterstitialAd();
     getData();
     getNHTNames();
-    MobileAds.instance.initialize().then((InitializationStatus status) {
-      print('Initialization done: ${status.adapterStatuses}');
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
-          .then((value) {
-        createInterstitialAd();
-      });
-    });
   }
 
   void createInterstitialAd() {
@@ -96,24 +99,6 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
             print('${ad.runtimeType} onApplicationExit.'),
       ),
     )..load();
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          adsHeight = 90;
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   getData() async {
@@ -228,9 +213,9 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
     String banMenhCha = lstNienMenh.first.menh;
     nhsCha.content1 = banMenhCha;
     nhsCha.content2Title = "Hành của tên con: ";
-    nhsCha.content2 = banMenh;
+    nhsCha.content2 = nhtCon.type;
     nhsCha.score = nhi.getScore(nhtCon, new NguHanhTen(type: banMenhCha));
-    if (nhsCha.score == 2) nhsCha.score += 1;
+    if (nhsCha.score != 0) nhsCha.score += 1;
     nhsCha.content3Title = concludeTitle;
     nhsCha.content3 = nhi.getConclusion(
         nhsCha.score, "bản mệnh cha", banMenhCha, "tên con", nhtCon.type);
@@ -246,7 +231,7 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
     String banMenhMe = lstNienMenh.elementAt(1).menh;
     nhsMe.content1 = banMenhMe;
     nhsMe.content2Title = "Hành của tên con: ";
-    nhsMe.content2 = banMenh;
+    nhsMe.content2 = nhtCon.type;
     nhsMe.score = nhi.getScore(nhtCon, new NguHanhTen(type: banMenhMe));
     if (nhsMe.score != 0) nhsMe.score += 1;
     nhsMe.content3Title = concludeTitle;
@@ -364,8 +349,6 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
 
   @override
   void dispose() {
-    _subscription.cancel();
-    nativeAdController.dispose();
     _interstitialAd?.dispose();
     super.dispose();
   }
@@ -448,14 +431,10 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
                       _buildGeneralAnalysis(context),
                       Container(
                         margin: EdgeInsets.only(top: 20),
-                        width: MediaQuery.of(context).size.width,
+                        width: _ad.size.width.toDouble(),
                         height: adsHeight,
-                        child: NativeAdmob(
-                          adUnitID: getNativeAdUnitId(),
-                          numberAds: 3,
-                          controller: nativeAdController,
-                          type: NativeAdmobType.banner,
-                        ),
+                        alignment: Alignment.center,
+                        child: AdWidget(ad: _ad),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
@@ -470,14 +449,10 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
                       _buildNienMenh(context),
                       Container(
                         margin: EdgeInsets.only(top: 20),
-                        width: MediaQuery.of(context).size.width,
+                        width: _ad.size.width.toDouble(),
                         height: adsHeight,
-                        child: NativeAdmob(
-                          adUnitID: getNativeAdUnitId(),
-                          numberAds: 3,
-                          controller: nativeAdController,
-                          type: NativeAdmobType.banner,
-                        ),
+                        alignment: Alignment.center,
+                        child: AdWidget(ad: _ad),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10.0, bottom: 5.0),

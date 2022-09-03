@@ -7,7 +7,7 @@ class NguHanhTen {
 
   NguHanhTen({this.nameId, this.name, this.type});
 
-  factory NguHanhTen.fromJson(Map<String, dynamic> json) {
+  factory NguHanhTen.fromJson(Map<dynamic, dynamic> json) {
     return NguHanhTen(
       nameId: json['nameId'] as String,
       name: json['name'] as String,

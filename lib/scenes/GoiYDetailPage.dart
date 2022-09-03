@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_native_admob/flutter_native_admob.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../databases/localDB.dart';
@@ -32,9 +30,6 @@ class GoiYDetailPage extends StatefulWidget {
 
 class _GoiYDetailPageState extends State<GoiYDetailPage> {
   double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
-
   NguHanhInput nhi;
   SolarLunarConverter slc;
   int totalScore;
@@ -52,26 +47,34 @@ class _GoiYDetailPageState extends State<GoiYDetailPage> {
   String suggestedMidNameType = "Kim";
 
   InterstitialAd _interstitialAd;
+  BannerAd _ad;
   bool _interstitialReady;
 
   _GoiYDetailPageState({this.nhi});
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
     getData();
     getSurnames();
-    MobileAds.instance.initialize().then((InitializationStatus status) {
-      print('Initialization done: ${status.adapterStatuses}');
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
-          .then((value) {
-        createInterstitialAd();
-      });
-    });
+    createInterstitialAd();
   }
 
   void createInterstitialAd() {
@@ -118,7 +121,7 @@ class _GoiYDetailPageState extends State<GoiYDetailPage> {
     for (int i = 0; i < surnames.length; i++) {
       NguHanhTen nht = await DBProvider.db.getNguHanhTenByName(surnames[i]);
       if (nht == null) {
-        nht = new NguHanhTen();
+        nht = new NguHanhTen(nameId: '');
         nht.name = surnames[i];
         nht.type = undefined_type;
       }
@@ -190,27 +193,7 @@ class _GoiYDetailPageState extends State<GoiYDetailPage> {
 
   @override
   void dispose() {
-    _subscription.cancel();
-    nativeAdController.dispose();
     super.dispose();
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          adsHeight = 90;
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   @override
@@ -292,14 +275,10 @@ class _GoiYDetailPageState extends State<GoiYDetailPage> {
                           _buildNameAnalysis(context),
                           Container(
                             margin: EdgeInsets.only(top: 20),
-                            width: MediaQuery.of(context).size.width,
+                            width: _ad.size.width.toDouble(),
                             height: adsHeight,
-                            child: NativeAdmob(
-                              adUnitID: getNativeAdUnitId(),
-                              numberAds: 3,
-                              controller: nativeAdController,
-                              type: NativeAdmobType.banner,
-                            ),
+                            alignment: Alignment.center,
+                            child: AdWidget(ad: _ad),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 10.0, bottom: 5.0),

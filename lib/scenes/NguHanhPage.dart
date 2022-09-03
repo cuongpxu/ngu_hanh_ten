@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_admob/flutter_native_admob.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,10 +21,8 @@ class NguHanhPage extends StatefulWidget {
 enum Gender { male, female }
 
 class _NguHanhPageState extends State<NguHanhPage> {
-  double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
-
+  double adsHeight = 90.0;
+  BannerAd _ad;
   NguHanhInput nhInput;
   final timeFormatter = DateFormat("HH:mm");
   final dateFormatter = DateFormat("dd/MM/yyyy");
@@ -39,8 +35,24 @@ class _NguHanhPageState extends State<NguHanhPage> {
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
     nhInput = new NguHanhInput();
     // // Get user input from prefs
     _getUserInformation();
@@ -110,32 +122,12 @@ class _NguHanhPageState extends State<NguHanhPage> {
 
   @override
   void dispose() {
-    _subscription.cancel();
-    nativeAdController.dispose();
     surnameTEC.dispose();
     firstnameTEC.dispose();
     kidDateBornTEC.dispose();
     dadDateBornTEC.dispose();
     momDateBornTEC.dispose();
     super.dispose();
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          adsHeight = 90;
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   @override
@@ -151,14 +143,10 @@ class _NguHanhPageState extends State<NguHanhPage> {
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 20),
-                  width: MediaQuery.of(context).size.width,
+                  width: _ad.size.width.toDouble(),
                   height: adsHeight,
-                  child: NativeAdmob(
-                    adUnitID: getNativeAdUnitId(),
-                    numberAds: 3,
-                    controller: nativeAdController,
-                    type: NativeAdmobType.banner,
-                  ),
+                  alignment: Alignment.center,
+                  child: AdWidget(ad: _ad),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 50.0, bottom: 20.0),

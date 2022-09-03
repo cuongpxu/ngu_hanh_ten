@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_admob/flutter_native_admob.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../models/NguHanhInput.dart';
 import '../utils/adsId.dart';
 import '../databases/localDB.dart';
@@ -15,35 +13,31 @@ class FavoriteNamePage extends StatefulWidget {
 }
 
 class _FavoriteNamePageState extends State<FavoriteNamePage> {
-  double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
-
+  double adsHeight = 90.0;
   List<NguHanhInput> lstNHI = [];
+  BannerAd _ad;
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
     getData();
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          adsHeight = 90;
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   getData() async {
@@ -59,7 +53,6 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
   @override
   void dispose() {
     super.dispose();
-    _subscription.cancel();
   }
 
   @override
@@ -75,14 +68,10 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 20),
-                width: MediaQuery.of(context).size.width,
+                width: _ad.size.width.toDouble(),
                 height: adsHeight,
-                child: NativeAdmob(
-                  adUnitID: getNativeAdUnitId(),
-                  numberAds: 3,
-                  controller: nativeAdController,
-                  type: NativeAdmobType.banner,
-                ),
+                alignment: Alignment.center,
+                child: AdWidget(ad: _ad),
               ),
               Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 20.0),

@@ -4,7 +4,12 @@ class TongQuan {
   String score;
   String conclusion;
 
-  TongQuan({this.expectedName, this.expectedNameBreakDown, this.score, this.conclusion});
+  TongQuan({
+    this.expectedName,
+    this.expectedNameBreakDown,
+    this.score,
+    this.conclusion
+  });
 
   factory TongQuan.fromJson(Map<String, dynamic> json) {
     return TongQuan(

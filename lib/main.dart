@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import 'databases/localDB.dart';
@@ -43,8 +42,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
   ImageProvider bg;
 
   int _selectedIndex = 0;
@@ -63,34 +60,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
   }
 
   @override
   void dispose() {
-    _subscription.cancel();
-    nativeAdController.dispose();
     super.dispose();
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          this.adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          this.adsHeight = 90;
-        });
-        break;
-
-      default:
-        break;
-    }
   }
 
   @override

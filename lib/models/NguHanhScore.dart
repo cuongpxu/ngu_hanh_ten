@@ -12,9 +12,17 @@ class NguHanhScore {
   int score;
   String scoreText;
 
-  NguHanhScore({this.title, this.content1Title, this.content1,
-    this.content2Title, this.content2,
-    this.content3Title, this.content3, this.score, this.scoreText});
+  NguHanhScore({
+    this.title,
+    this.content1Title,
+    this.content1,
+    this.content2Title,
+    this.content2,
+    this.content3Title,
+    this.content3,
+    this.score,
+    this.scoreText
+  });
 
   factory NguHanhScore.fromJson(Map<String, dynamic> json) {
     return NguHanhScore(

@@ -8,7 +8,14 @@ class NienMenh {
   String nienMenh;
   String menh;
 
-  NienMenh({this.who, this.title, this.dateSolar, this.dateLunar, this.nienMenh, this.menh});
+  NienMenh({
+    this.who,
+    this.title,
+    this.dateSolar,
+    this.dateLunar,
+    this.nienMenh,
+    this.menh
+  });
 
   @override
   String toString() {

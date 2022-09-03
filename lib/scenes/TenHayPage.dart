@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_admob/flutter_native_admob.dart';
-import 'package:flutter_native_admob/native_admob_controller.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../databases/localDB.dart';
 import '../models/NguHanhTen.dart';
 import '../utils/commons.dart';
@@ -16,10 +15,7 @@ class TenHayPage extends StatefulWidget {
 }
 
 class _TenHayPageState extends State<TenHayPage> {
-  double adsHeight = 0;
-  final nativeAdController = NativeAdmobController();
-  StreamSubscription _subscription;
-
+  double adsHeight = 90.0;
   final TextEditingController nameTEC = TextEditingController();
   ScrollController _scrollController = ScrollController();
 
@@ -28,11 +24,28 @@ class _TenHayPageState extends State<TenHayPage> {
   List<NguHanhTen> data = [];
   int offset = 0;
   bool hasMoreData = true;
+  BannerAd _ad;
 
   @override
   void initState() {
-    _subscription = nativeAdController.stateChanged.listen(_onStateChanged);
     super.initState();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -40,24 +53,6 @@ class _TenHayPageState extends State<TenHayPage> {
       }
     });
     nameTEC.addListener(_resetOffsetWhenNameSearchChanged);
-  }
-
-  void _onStateChanged(AdLoadState state) {
-    switch (state) {
-      case AdLoadState.loading:
-        setState(() {
-          adsHeight = 0;
-        });
-        break;
-
-      case AdLoadState.loadCompleted:
-        setState(() {
-          adsHeight = 90;
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   void _resetOffsetWhenNameSearchChanged() {
@@ -94,7 +89,6 @@ class _TenHayPageState extends State<TenHayPage> {
 
   @override
   void dispose() {
-    _subscription.cancel();
     super.dispose();
   }
 
@@ -112,14 +106,10 @@ class _TenHayPageState extends State<TenHayPage> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 20),
-                width: MediaQuery.of(context).size.width,
+                width: _ad.size.width.toDouble(),
                 height: adsHeight,
-                child: NativeAdmob(
-                  adUnitID: getNativeAdUnitId(),
-                  numberAds: 3,
-                  controller: nativeAdController,
-                  type: NativeAdmobType.banner,
-                ),
+                alignment: Alignment.center,
+                child: AdWidget(ad: _ad),
               ),
               Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 20.0),
@@ -241,9 +231,6 @@ class _TenHayPageState extends State<TenHayPage> {
   }
 
   Widget _buildList(BuildContext context, List<NguHanhTen> data) {
-    if (data == null) {
-      return Container();
-    }
     if (data.isEmpty) {
       return Container();
     }

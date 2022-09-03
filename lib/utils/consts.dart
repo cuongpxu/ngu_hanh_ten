@@ -98,5 +98,5 @@ const infor1 = "Việc đặt tên cho con cái không chỉ là một việc tr
 const infor2 = "Để chọn tên phù hợp với con thì bạn hãy lấy Niên mệnh của con bạn làm chủ. Thông thường mỗi một hành thì sẽ có hai hành tương sinh và một hành bình hòa, chúng tôi nêu ví dụ cho bạn dễ hiểu. Ví dụ: con của bạn có niên mệnh là Thổ thì hai hành tương sinh phải là Kim và Hỏa và 1 hành bình hòa là Thổ, như vậy tên đặt cho con của bạn nên chọn trong các hành Kim, Hỏa hoặc Thổ. Việc chọn tên có hành Kim và Hỏa để tương sinh cho hành Thổ của con bạn là việc quá dễ, nhưng điều khó là nó phải tương sinh luôn với ngũ hành của cha và mẹ thì mới thật sự là tốt.";
 const infor3 = "Vậy bạn hãy ưu tiên chọn tên cho con của bạn bằng một trong hai hành Kim và Hỏa, tùy theo hành nào hợp với niên mệnh của bạn là tốt, hoặc bất quá là hành Thổ bình hòa nhé. Nếu con bạn sống chung với cha mẹ thì ưu tiên chọn tên có hành tương sinh với niên mệnh cha, còn nếu sống riêng theo ai, cha hoặc mẹ thì chọn tên có hành tương sinh với niên mệnh người đó, nếu tên con được tương sinh cả niên mệnh cha và mẹ thì cực kỳ tốt.";
 const infor4 = "Ứng dụng \"Đặt tên theo Ngũ Hành\" là một công cụ mang tính tham khảo, để giúp các bậc cha mẹ có một định hướng khi đặt tên cho con.";
-
+const infor5 = "";
 const interstitialProb = 0.4;

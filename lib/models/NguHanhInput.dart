@@ -16,16 +16,18 @@ class NguHanhInput {
   int isFavorite = 0;
 
   NguHanhInput(
-      {this.id,
-      this.firstname,
-      this.surname,
-      this.gender,
-      this.kidDateBorn,
-      this.dadDateBorn,
-      this.momDateBorn,
-      this.isFavorite});
+  {
+    this.id,
+    this.firstname,
+    this.surname,
+    this.gender,
+    this.kidDateBorn,
+    this.dadDateBorn,
+    this.momDateBorn,
+    this.isFavorite
+  });
 
-  factory NguHanhInput.fromJson(Map<String, dynamic> json) {
+  factory NguHanhInput.fromJson(Map<dynamic, dynamic> json) {
     final dateFormatter = DateFormat("dd/MM/yyyy");
     return NguHanhInput(
         id: json['id'] as String,
