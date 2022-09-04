@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -15,7 +14,7 @@ class TenHayPage extends StatefulWidget {
 }
 
 class _TenHayPageState extends State<TenHayPage> {
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
   final TextEditingController nameTEC = TextEditingController();
   ScrollController _scrollController = ScrollController();
 
@@ -106,10 +105,10 @@ class _TenHayPageState extends State<TenHayPage> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 20),
-                width: _ad.size.width.toDouble(),
+                width: MediaQuery.of(context).size.width,
                 height: adsHeight,
                 alignment: Alignment.center,
-                child: AdWidget(ad: _ad),
+                child: _ad == null ? Container() : AdWidget(ad: _ad),
               ),
               Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 20.0),

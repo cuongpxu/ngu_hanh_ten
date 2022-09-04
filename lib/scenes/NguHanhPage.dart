@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +20,7 @@ class NguHanhPage extends StatefulWidget {
 enum Gender { male, female }
 
 class _NguHanhPageState extends State<NguHanhPage> {
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
   BannerAd _ad;
   NguHanhInput nhInput;
   final timeFormatter = DateFormat("HH:mm");
@@ -98,7 +97,7 @@ class _NguHanhPageState extends State<NguHanhPage> {
 
   _setKidDateBorn() {
     setState(() {
-      if (kidDateBornTEC.text != ''){
+      if (kidDateBornTEC.text != '') {
         this.nhInput.kidDateBorn = dateFormatter.parse(kidDateBornTEC.text);
       }
     });
@@ -106,7 +105,7 @@ class _NguHanhPageState extends State<NguHanhPage> {
 
   _setDadDateBorn() {
     setState(() {
-      if (dadDateBornTEC.text != ''){
+      if (dadDateBornTEC.text != '') {
         this.nhInput.dadDateBorn = dateFormatter.parse(dadDateBornTEC.text);
       }
     });
@@ -114,7 +113,7 @@ class _NguHanhPageState extends State<NguHanhPage> {
 
   _setMomDateBorn() {
     setState(() {
-      if (momDateBornTEC.text != ''){
+      if (momDateBornTEC.text != '') {
         this.nhInput.momDateBorn = dateFormatter.parse(momDateBornTEC.text);
       }
     });
@@ -134,161 +133,162 @@ class _NguHanhPageState extends State<NguHanhPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.all(10.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  width: _ad.size.width.toDouble(),
-                  height: adsHeight,
-                  alignment: Alignment.center,
-                  child: AdWidget(ad: _ad),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 50.0, bottom: 20.0),
-                  child: Center(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(nguHanhPageTitle.toUpperCase(),
-                              style: TextStyle(
-                                  fontSize: 36,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontFamily: 'ThuPhap')),
-                          IconButton(
-                              icon: Icon(
-                                Icons.info_outline,
-                                color: Colors.white,
-                              ),
-                              tooltip: 'Thông tin',
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => InformationPage(),
-                                    ));
-                              }),
-                        ]),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return surnameHint;
-                      } else if (value.length < 2) {
-                        return surnameError;
-                      }
-                      return null;
-                    },
-                    controller: surnameTEC,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: backgroundColor,
-                      hintText: surname,
-//                      labelText: surname,
-//                      labelStyle: TextStyle(color: Colors.white),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red)),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.yellowAccent),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.yellowAccent),
-                      ),
-                      errorStyle: TextStyle(color: Colors.yellowAccent),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                  child: TextFormField(
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return firstnameHint;
-                      } else if (value.length < 2) {
-                        return firstnameError;
-                      }
-                      return null;
-                    },
-                    controller: firstnameTEC,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: firstname,
-                      labelStyle: new TextStyle(color: Colors.white),
-                      enabledBorder: const OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white)),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.yellowAccent),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.yellowAccent),
-                      ),
-                      errorStyle: TextStyle(color: Colors.yellowAccent),
-                    ),
-                  ),
-                ),
-                _buildDateBorn(context, kidDateBornTEC, kidYearBorn),
-                _buildDateBorn(context, dadDateBornTEC, dadYearBorn),
-                _buildDateBorn(context, momDateBornTEC, momYearBorn),
-                Center(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                      (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.pressed))
-                          return secondColor;
-                        return primaryColor; // Use the component's default.
-                      },
-                    )),
-                    child: Text(checkNameTitle,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    onPressed: () {
-                      if (_formKey.currentState.validate()) {
-                        NguHanhInput nhi = new NguHanhInput(
-                            firstname: firstnameTEC.text.capitalizeFirstofEach,
-                            surname: surnameTEC.text.capitalizeFirstofEach,
-                            kidDateBorn: dateFormatter.parse(kidDateBornTEC.text),
-                            dadDateBorn: dateFormatter.parse(dadDateBornTEC.text),
-                            momDateBorn: dateFormatter.parse(momDateBornTEC.text),
-                            isFavorite: 0);
-
-                        if (nhi.kidDateBorn.year <= nhi.dadDateBorn.year ||
-                            nhi.kidDateBorn.year <= nhi.dadDateBorn.year) {
-                          showAlertDialog(context);
-                        } else {
-                          _saveUserInformation(nhi);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NguHanhDetailPage(nhi: nhi),
-                              ));
-                        }
-                      }
-                    },
-                  ),
-                ),
-              ],
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      padding: EdgeInsets.all(10.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              width: MediaQuery.of(context).size.width,
+              height: adsHeight,
+              alignment: Alignment.center,
+              child: _ad == null ? Container() : AdWidget(ad: _ad),
             ),
-          ),
+            Container(
+              margin: EdgeInsets.only(top: 50.0, bottom: 20.0),
+              child: Center(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(nguHanhPageTitle.toUpperCase(),
+                          style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: 'ThuPhap')),
+                      IconButton(
+                          icon: Icon(
+                            Icons.info_outline,
+                            color: Colors.white,
+                          ),
+                          tooltip: 'Thông tin',
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => InformationPage(),
+                                ));
+                          }),
+                    ]),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return surnameHint;
+                  } else if (value.length < 2) {
+                    return surnameError;
+                  }
+                  return null;
+                },
+                controller: surnameTEC,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  // filled: true,
+                  // fillColor: backgroundColor,
+                  // hintText: surname,
+                  labelText: surname,
+                  labelStyle: new TextStyle(color: Colors.white),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.yellowAccent),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.yellowAccent),
+                  ),
+                  errorStyle: TextStyle(color: Colors.yellowAccent),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: TextFormField(
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return firstnameHint;
+                  } else if (value.length < 2) {
+                    return firstnameError;
+                  }
+                  return null;
+                },
+                controller: firstnameTEC,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  labelText: firstname,
+                  labelStyle: new TextStyle(color: Colors.white),
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.yellowAccent),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.yellowAccent),
+                  ),
+                  errorStyle: TextStyle(color: Colors.yellowAccent),
+                ),
+              ),
+            ),
+            _buildDateBorn(context, kidDateBornTEC, kidYearBorn),
+            _buildDateBorn(context, dadDateBornTEC, dadYearBorn),
+            _buildDateBorn(context, momDateBornTEC, momYearBorn),
+            Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed))
+                      return secondColor;
+                    return primaryColor; // Use the component's default.
+                  },
+                )),
+                child: Text(checkNameTitle,
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  if (_formKey.currentState.validate()) {
+                    NguHanhInput nhi = new NguHanhInput(
+                        firstname:
+                            firstnameTEC.text.capitalizeFirstofEach.trim(),
+                        surname: surnameTEC.text.capitalizeFirstofEach.trim(),
+                        kidDateBorn: dateFormatter.parse(kidDateBornTEC.text),
+                        dadDateBorn: dateFormatter.parse(dadDateBornTEC.text),
+                        momDateBorn: dateFormatter.parse(momDateBornTEC.text),
+                        isFavorite: 0);
+
+                    if (nhi.kidDateBorn.year <= nhi.dadDateBorn.year ||
+                        nhi.kidDateBorn.year <= nhi.dadDateBorn.year) {
+                      showAlertDialog(context);
+                    } else {
+                      _saveUserInformation(nhi);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NguHanhDetailPage(nhi: nhi),
+                          ));
+                    }
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     ));
   }
 
@@ -299,7 +299,7 @@ class _NguHanhPageState extends State<NguHanhPage> {
         margin: EdgeInsets.only(bottom: 10.0),
         child: DateTimeField(
           validator: (DateTime dateTime) {
-            if (dateController.text != ''){
+            if (dateController.text != '') {
               dateTime = dateFormatter.parse(dateController.text);
             }
             if (dateTime == null) {

@@ -5,7 +5,6 @@ import 'package:ngu_hanh_ten/models/NguHanhTen.dart';
 import 'package:ngu_hanh_ten/scenes/NguHanhPage.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import '../models/CungMenh.dart';
@@ -180,6 +179,14 @@ class DBProvider {
 
   Future<int> setFavoriteName(NguHanhInput nhi) async {
     final db = await database;
+    await DBProvider.db.getFavoriteNameByFields(nhi).then((value) {
+      if (value != null) {
+        nhi = value;
+      }
+    });
+    if (nhi.isFavorite == 1){
+      return 0;
+    }
     nhi.isFavorite = 1;
     int insertedCount = await db.insert(FAVORITE_TABLE, nhi.toJson(), conflictAlgorithm: ConflictAlgorithm.replace);
     return insertedCount;

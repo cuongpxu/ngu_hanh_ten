@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -11,7 +10,7 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
   BannerAd _ad;
 
   @override
@@ -55,10 +54,10 @@ class _InformationPageState extends State<InformationPage> {
                 children: [
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    width: _ad.size.width.toDouble(),
+                    width: MediaQuery.of(context).size.width,
                     height: adsHeight,
                     alignment: Alignment.center,
-                    child: AdWidget(ad: _ad),
+                    child: _ad == null ? Container() : AdWidget(ad: _ad),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 10.0, bottom: 5.0),

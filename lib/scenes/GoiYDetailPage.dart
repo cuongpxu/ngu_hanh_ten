@@ -29,7 +29,7 @@ class GoiYDetailPage extends StatefulWidget {
 }
 
 class _GoiYDetailPageState extends State<GoiYDetailPage> {
-  double adsHeight = 0;
+  double adsHeight = 60.0;
   NguHanhInput nhi;
   SolarLunarConverter slc;
   int totalScore;
@@ -275,10 +275,10 @@ class _GoiYDetailPageState extends State<GoiYDetailPage> {
                           _buildNameAnalysis(context),
                           Container(
                             margin: EdgeInsets.only(top: 20),
-                            width: _ad.size.width.toDouble(),
+                            width: MediaQuery.of(context).size.width,
                             height: adsHeight,
                             alignment: Alignment.center,
-                            child: AdWidget(ad: _ad),
+                            child: _ad == null ? Container() : AdWidget(ad: _ad),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 10.0, bottom: 5.0),

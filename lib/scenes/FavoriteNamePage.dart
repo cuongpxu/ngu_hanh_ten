@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../models/NguHanhInput.dart';
@@ -13,7 +12,7 @@ class FavoriteNamePage extends StatefulWidget {
 }
 
 class _FavoriteNamePageState extends State<FavoriteNamePage> {
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
   List<NguHanhInput> lstNHI = [];
   BannerAd _ad;
 
@@ -68,10 +67,10 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 20),
-                width: _ad.size.width.toDouble(),
+                width: MediaQuery.of(context).size.width,
                 height: adsHeight,
                 alignment: Alignment.center,
-                child: AdWidget(ad: _ad),
+                child: _ad == null ? Container() : AdWidget(ad: _ad),
               ),
               Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 20.0),
@@ -112,7 +111,9 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
   Widget _buildListItem(BuildContext context, NguHanhInput nhi, int index) {
     return Container(
         width: MediaQuery.of(context).size.width,
-//        decoration: (index % 2) == 0 ? BoxDecoration(color: Colors.grey.withOpacity(0.3)) : null,
+        decoration: (index % 2) == 0
+            ? BoxDecoration(color: Colors.grey.withOpacity(0.3))
+            : null,
         child: Column(children: [
           Card(
               child: new InkWell(
@@ -129,8 +130,21 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
                 width: MediaQuery.of(context).size.width,
                 color: Color(0xFFF9F3CC),
                 padding: EdgeInsets.all(10.0),
-                child: Text("${nhi.surname} ${nhi.firstname}",
-                    style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child:
+                      Text("${nhi.surname} ${nhi.firstname}",
+                        style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
+                      flex: 2,
+                    ),
+                    Expanded(
+                      child: Text("Điểm: ",
+                          style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
+                      flex: 1,
+                    )
+                  ],
+                )
               ),
             ),
           )),

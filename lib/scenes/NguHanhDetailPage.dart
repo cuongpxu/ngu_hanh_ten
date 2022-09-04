@@ -38,11 +38,12 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
   List<NguHanhTen> lstNHTNames;
 
   IconData iconData = Icons.favorite_border;
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
 
   InterstitialAd _interstitialAd;
   bool _interstitialReady ;
   BannerAd _ad;
+  BannerAd _ad2;
 
   _NguHanhDetailPageState({this.nhi});
 
@@ -57,6 +58,23 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
         onAdLoaded: (ad) {
           setState(() {
             _ad = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, error) {
+          // Releases an ad resource when it fails to load
+          ad.dispose();
+          print('Ad load failed (code=${error.code} message=${error.message})');
+        },
+      ),
+    ).load();
+    BannerAd(
+      adUnitId: getBannerAdUnitId(),
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: AdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _ad2 = ad as BannerAd;
           });
         },
         onAdFailedToLoad: (ad, error) {
@@ -431,10 +449,10 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
                       _buildGeneralAnalysis(context),
                       Container(
                         margin: EdgeInsets.only(top: 20),
-                        width: _ad.size.width.toDouble(),
+                        width: MediaQuery.of(context).size.width,
                         height: adsHeight,
                         alignment: Alignment.center,
-                        child: AdWidget(ad: _ad),
+                        child: _ad == null ? Container() : AdWidget(ad: _ad),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10.0, bottom: 5.0),
@@ -449,10 +467,10 @@ class _NguHanhDetailPageState extends State<NguHanhDetailPage> {
                       _buildNienMenh(context),
                       Container(
                         margin: EdgeInsets.only(top: 20),
-                        width: _ad.size.width.toDouble(),
+                        width: MediaQuery.of(context).size.width,
                         height: adsHeight,
                         alignment: Alignment.center,
-                        child: AdWidget(ad: _ad),
+                        child: _ad2 == null ? Container() : AdWidget(ad: _ad2),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 10.0, bottom: 5.0),

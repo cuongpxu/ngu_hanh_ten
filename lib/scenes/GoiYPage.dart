@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +18,7 @@ class GoiYPage extends StatefulWidget {
 }
 
 class _GoiYPageState extends State<GoiYPage> {
-  double adsHeight = 90.0;
+  double adsHeight = 60.0;
   BannerAd _ad;
   NguHanhInput nhInput;
   final dateFormatter = DateFormat("dd/MM/yyyy");
@@ -124,10 +123,10 @@ class _GoiYPageState extends State<GoiYPage> {
             children: [
               Container(
                 margin: EdgeInsets.only(top: 20),
-                width: _ad.size.width.toDouble(),
+                width: MediaQuery.of(context).size.width,
                 height: adsHeight,
                 alignment: Alignment.center,
-                child: AdWidget(ad: _ad),
+                child: _ad == null ? Container() : AdWidget(ad: _ad),
               ),
               Container(
                 margin: EdgeInsets.only(top: 50.0, bottom: 20.0),
@@ -231,7 +230,7 @@ class _GoiYPageState extends State<GoiYPage> {
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       NguHanhInput nhi = new NguHanhInput(
-                          surname: surnameTEC.text.capitalizeFirstofEach,
+                          surname: surnameTEC.text.capitalizeFirstofEach.trim(),
                           gender: _gender,
                           kidDateBorn: dateFormatter.parse(kidDateBornTEC.text),
                           dadDateBorn: dateFormatter.parse(dadDateBornTEC.text),
