@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../databases/localDB.dart';
-import '../models/NguHanhTen.dart';
-import '../utils/commons.dart';
-import '../utils/consts.dart';
-import '../utils/colors.dart';
-import '../utils/adsId.dart';
+import '../../../databases/local_db.dart';
+import '../../../models/NguHanhTen.dart';
+import '../../../utils/commons.dart';
+import '../../../utils/consts.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/adsId.dart';
 
-class TenHayPage extends StatefulWidget {
+class SearchNamePage extends StatefulWidget {
   @override
-  _TenHayPageState createState() => _TenHayPageState();
+  _SearchNamePageState createState() => _SearchNamePageState();
 }
 
-class _TenHayPageState extends State<TenHayPage> {
+class _SearchNamePageState extends State<SearchNamePage> {
   double adsHeight = 60.0;
   final TextEditingController nameTEC = TextEditingController();
   ScrollController _scrollController = ScrollController();

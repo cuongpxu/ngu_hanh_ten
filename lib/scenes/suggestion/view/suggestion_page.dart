@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:ngu_hanh_ten/utils/consts.dart';
+import 'package:ngu_hanh_ten/utils/colors.dart';
+import 'package:ngu_hanh_ten/utils/commons.dart';
+import 'package:ngu_hanh_ten/utils/adsId.dart';
+import 'package:ngu_hanh_ten/models/NguHanhInput.dart';
+import 'package:ngu_hanh_ten/scenes/detail/view/ngu_hanh_page.dart';
+import 'package:ngu_hanh_ten/scenes/suggestion/view/suggestion_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/consts.dart';
-import '../utils/colors.dart';
-import '../utils/adsId.dart';
-import '../utils/commons.dart';
-import '../models/NguHanhInput.dart';
-import 'NguHanhPage.dart';
-import 'GoiYDetailPage.dart';
-
-class GoiYPage extends StatefulWidget {
+class SuggestionPage extends StatefulWidget {
   @override
-  _GoiYPageState createState() => _GoiYPageState();
+  _SuggestionPageState createState() => _SuggestionPageState();
 }
 
-class _GoiYPageState extends State<GoiYPage> {
+class _SuggestionPageState extends State<SuggestionPage> {
   double adsHeight = 60.0;
   BannerAd _ad;
   NguHanhInput nhInput;
@@ -145,7 +144,7 @@ class _GoiYPageState extends State<GoiYPage> {
                   controller: surnameTEC,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                      labelText: surname,
+                      labelText: lastName,
                       labelStyle: new TextStyle(color: Colors.white),
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.white)),
@@ -164,9 +163,9 @@ class _GoiYPageState extends State<GoiYPage> {
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return surnameHint;
+                      return lastNameHint;
                     } else if (value.length < 2) {
-                      return surnameError;
+                      return lastNameError;
                     }
                     return null;
                   }

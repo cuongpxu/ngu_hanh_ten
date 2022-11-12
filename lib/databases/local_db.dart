@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:ngu_hanh_ten/models/NguHanhInput.dart';
 import 'package:ngu_hanh_ten/models/NguHanhTen.dart';
-import 'package:ngu_hanh_ten/scenes/NguHanhPage.dart';
+import 'package:ngu_hanh_ten/scenes/detail/view/ngu_hanh_page.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_sqlcipher/sqflite.dart';
 import 'package:flutter/services.dart';
@@ -10,9 +10,11 @@ import 'package:intl/intl.dart';
 import '../models/CungMenh.dart';
 
 class DBProvider {
-  DBProvider._();
-  static final DBProvider db = DBProvider._();
-  static  Database _database;
+
+  static final DBProvider db = new DBProvider._internal();
+  DBProvider._internal();
+  static DBProvider get instance => db;
+  static Database _database;
 
   static const DB_NAME = "nguhanhten.db";
   static const PWD = "Manuka1603@#";

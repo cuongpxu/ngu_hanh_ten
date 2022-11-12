@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-
-import '../utils/consts.dart';
-import '../utils/adsId.dart';
+import 'package:ngu_hanh_ten/utils/consts.dart';
+import 'package:ngu_hanh_ten/utils/adsId.dart';
 
 class InformationPage extends StatefulWidget {
   @override

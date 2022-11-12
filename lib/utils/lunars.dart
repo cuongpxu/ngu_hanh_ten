@@ -278,7 +278,7 @@ class SolarLunarConverter {
   }
 }
 
-//void main() {
+//void detail() {
 //  var slc = SolarLunarConverter(year: 1991, month: 3, day: 10);
 //  LunarDate ld = slc.toLunar();
 //  print(ld.toDate());

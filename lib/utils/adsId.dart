@@ -24,8 +24,8 @@ String getBannerAdUnitId() {
  if (Platform.isIOS) {
    return 'ca-app-pub-3940256099942544/6300978111';
  } else if (Platform.isAndroid) {
-   // return 'ca-app-pub-6030254742002833/5655158227';
-   return 'ca-app-pub-3940256099942544/6300978111';
+   return 'ca-app-pub-6030254742002833/5655158227';
+   // return 'ca-app-pub-3940256099942544/6300978111';
  }
  throw UnsupportedError("Unsupported platform");
 }

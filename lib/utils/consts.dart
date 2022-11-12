@@ -26,9 +26,9 @@ const gender = "Giới tính:";
 const male = "Nam";
 const female = "Nữ";
 
-const surname = "Họ (bao gồm cả họ ghép)";
-const surnameHint = "Xin mời nhập họ!";
-const surnameError = "Họ phải chứa ít nhất 2 ký tự!";
+const lastName = "Họ (bao gồm cả họ ghép)";
+const lastNameHint = "Xin mời nhập họ!";
+const lastNameError = "Họ phải chứa ít nhất 2 ký tự!";
 
 const firstname = "Tên (bao gồm cả tên đệm)";
 const firstnameHint = "Vui lòng nhập tên!";

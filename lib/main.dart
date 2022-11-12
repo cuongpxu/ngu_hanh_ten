@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:ngu_hanh_ten/scenes/suggestion/view/suggestion_page.dart';
+import 'package:ngu_hanh_ten/scenes/detail/view/ngu_hanh_page.dart';
+import 'package:ngu_hanh_ten/scenes/search/view/search_name_page.dart';
+import 'package:ngu_hanh_ten/scenes/favorite/view/favorite_page.dart';
+import 'package:ngu_hanh_ten/databases/local_db.dart';
+import 'package:ngu_hanh_ten/utils/consts.dart';
 
-import 'databases/localDB.dart';
-import 'utils/consts.dart';
-import 'scenes/NguHanhPage.dart';
-import 'scenes/GoiYPage.dart';
-import 'scenes/TenHayPage.dart';
-import 'scenes/FavoriteNamePage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +45,9 @@ class _MyAppState extends State<MyApp> {
 
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
-    NguHanhPage(),
-    GoiYPage(),
-    TenHayPage(),
+    NameAnalyticPage(),
+    SuggestionPage(),
+    SearchNamePage(),
     FavoriteNamePage()
   ];
 

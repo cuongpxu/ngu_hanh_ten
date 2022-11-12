@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import '../models/NguHanhInput.dart';
-import '../utils/adsId.dart';
-import '../databases/localDB.dart';
-import '../utils/consts.dart';
-import 'NguHanhDetailPage.dart';
+import '../../../models/NguHanhInput.dart';
+import '../../../utils/adsId.dart';
+import '../../../databases/local_db.dart';
+import '../../../utils/consts.dart';
+import '../../detail/view/ngu_hanh_detail_page.dart';
 
 class FavoriteNamePage extends StatefulWidget {
   @override
@@ -130,21 +130,8 @@ class _FavoriteNamePageState extends State<FavoriteNamePage> {
                 width: MediaQuery.of(context).size.width,
                 color: Color(0xFFF9F3CC),
                 padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child:
-                      Text("${nhi.surname} ${nhi.firstname}",
-                        style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
-                      flex: 2,
-                    ),
-                    Expanded(
-                      child: Text("Điểm: ",
-                          style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
-                      flex: 1,
-                    )
-                  ],
-                )
+                child: Text("${nhi.surname} ${nhi.firstname}",
+                    style: TextStyle(height: 1.5, fontWeight: FontWeight.bold)),
               ),
             ),
           )),

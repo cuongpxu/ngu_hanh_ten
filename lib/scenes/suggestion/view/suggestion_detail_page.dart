@@ -4,20 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../databases/localDB.dart';
-import '../models/NguHanhInput.dart';
-import '../models/TongQuan.dart';
-import '../models/NguHanhScore.dart';
-import '../models/NguHanhTen.dart';
-import '../models/NienMenh.dart';
-import '../models/CungMenh.dart';
-import '../utils/colors.dart';
-import '../utils/consts.dart';
-import '../utils/lunars.dart';
-import '../utils/commons.dart';
-import '../utils/adsId.dart';
-import 'NguHanhDetailPage.dart';
-import 'NguHanhPage.dart';
+import '../../../databases/local_db.dart';
+import '../../../models/NguHanhInput.dart';
+import '../../../models/TongQuan.dart';
+import '../../../models/NguHanhScore.dart';
+import '../../../models/NguHanhTen.dart';
+import '../../../models/NienMenh.dart';
+import '../../../models/CungMenh.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/consts.dart';
+import '../../../utils/lunars.dart';
+import '../../../utils/commons.dart';
+import '../../../utils/adsId.dart';
+import '../../detail/view/ngu_hanh_detail_page.dart';
+import '../../detail/view/ngu_hanh_page.dart';
 
 class GoiYDetailPage extends StatefulWidget {
   final NguHanhInput nhi;

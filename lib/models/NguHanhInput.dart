@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:intl/intl.dart';
-import '../scenes/NguHanhPage.dart';
-import '../databases/localDB.dart';
+import '../scenes/detail/view/ngu_hanh_page.dart';
+import '../databases/local_db.dart';
 import '../models/NguHanhTen.dart';
 import '../utils/consts.dart';
 
@@ -15,8 +15,7 @@ class NguHanhInput {
   DateTime momDateBorn;
   int isFavorite = 0;
 
-  NguHanhInput(
-  {
+  NguHanhInput({
     this.id,
     this.firstname,
     this.surname,

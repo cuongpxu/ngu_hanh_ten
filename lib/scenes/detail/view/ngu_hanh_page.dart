@@ -4,22 +4,22 @@ import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/consts.dart';
-import '../utils/colors.dart';
-import '../utils/adsId.dart';
-import '../utils/commons.dart';
-import '../models/NguHanhInput.dart';
-import 'NguHanhDetailPage.dart';
-import 'InformationPage.dart';
+import '../../../utils/consts.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/adsId.dart';
+import '../../../utils/commons.dart';
+import '../../../models/NguHanhInput.dart';
+import 'ngu_hanh_detail_page.dart';
+import '../../info/view/info_page.dart';
 
-class NguHanhPage extends StatefulWidget {
+class NameAnalyticPage extends StatefulWidget {
   @override
-  _NguHanhPageState createState() => _NguHanhPageState();
+  _NameAnalyticPageState createState() => _NameAnalyticPageState();
 }
 
 enum Gender { male, female }
 
-class _NguHanhPageState extends State<NguHanhPage> {
+class _NameAnalyticPageState extends State<NameAnalyticPage> {
   double adsHeight = 60.0;
   BannerAd _ad;
   NguHanhInput nhInput;
@@ -181,9 +181,9 @@ class _NguHanhPageState extends State<NguHanhPage> {
               child: TextFormField(
                 validator: (value) {
                   if (value.isEmpty) {
-                    return surnameHint;
+                    return lastNameHint;
                   } else if (value.length < 2) {
-                    return surnameError;
+                    return lastNameError;
                   }
                   return null;
                 },
@@ -193,7 +193,7 @@ class _NguHanhPageState extends State<NguHanhPage> {
                   // filled: true,
                   // fillColor: backgroundColor,
                   // hintText: surname,
-                  labelText: surname,
+                  labelText: lastName,
                   labelStyle: new TextStyle(color: Colors.white),
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white),

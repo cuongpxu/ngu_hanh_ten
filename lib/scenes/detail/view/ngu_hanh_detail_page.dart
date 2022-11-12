@@ -5,18 +5,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import '../databases/localDB.dart';
-import '../models/NguHanhInput.dart';
-import '../models/TongQuan.dart';
-import '../models/NguHanhScore.dart';
-import '../models/NguHanhTen.dart';
-import '../models/NienMenh.dart';
-import '../models/CungMenh.dart';
-import '../utils/colors.dart';
-import '../utils/consts.dart';
-import '../utils/lunars.dart';
-import '../utils/commons.dart';
-import '../utils/adsId.dart';
+import '../../../databases/local_db.dart';
+import '../../../models/NguHanhInput.dart';
+import '../../../models/TongQuan.dart';
+import '../../../models/NguHanhScore.dart';
+import '../../../models/NguHanhTen.dart';
+import '../../../models/NienMenh.dart';
+import '../../../models/CungMenh.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/consts.dart';
+import '../../../utils/lunars.dart';
+import '../../../utils/commons.dart';
+import '../../../utils/adsId.dart';
 
 class NguHanhDetailPage extends StatefulWidget {
   final NguHanhInput nhi;
