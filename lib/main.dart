@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ngu_hanh_ten/scenes/suggestion/view/suggestion_page.dart';
@@ -12,7 +11,6 @@ import 'package:ngu_hanh_ten/utils/consts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   MobileAds.instance.initialize();
   await DBProvider.db.initDB();
   runApp(
